@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<badlands xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- Regular grid structure -->
+    <grid>
+        <!-- Digital elevation model file path -->
+        <demfile>data/nodes.csv</demfile>
+        <!-- Boundary type: flat, slope or wall -->
+        <boundary>slope</boundary>
+        <!-- Optional parameter (integer) used to decrease TIN resolution.
+             The default value is set to 1. Increasing the factor
+             value will multiply the digital elevation model resolution
+             accordingly.  -->
+        <resfactor>1</resfactor>
+    </grid>
+
+    <!-- Simulation time structure -->
+    <time>
+        <!-- Simulation start time [a] -->
+        <start>0.</start>
+        <!-- Simulation end time [a] -->
+        <end>130000.</end>
+        <!-- Minim time step [a] -->
+        <mindt>1.</mindt>
+        <!-- Display interval [a] -->
+        <display>10000.</display>
+    </time>
+    
+    <!-- Sea-level structure -->
+    <sea>
+        <!-- Relative sea-level position [m] -->
+        <position>0.</position>
+        <!-- Sea-level curve - (optional) -->
+        <curve>data/sealevel.csv</curve>
+    </sea>
+    
+    <!-- Simulation stratigraphic structure -->
+    <strata>
+        <!-- Stratal grid resolution [m] -->
+        <stratdx>2000.</stratdx>
+        <!-- Stratal layer interval [a] -->
+        <laytime>5000.</laytime>
+    </strata>
+    
+    <!-- Tectonic structure -->
+    <tectonic>
+        <!-- Number of tectonic events -->
+        <events>1</events>
+        <!-- Displacement definition -->
+        <disp>
+            <!-- Displacement start time [a] -->
+            <dstart>0.</dstart>
+            <!-- Displacement end time [a] -->
+            <dend>130000.0</dend>
+            <!-- Displacement map [m] -->
+            <dfile>data/disp.csv</dfile>
+        </disp>
+    </tectonic>
+
+        <!-- Precipitation structure -->
+    <precipitation>
+        <!-- Number of precipitation events -->
+        <climates>1</climates>
+        <!-- Precipitation map definition -->
+        <rain>
+            <!-- Rain start time [a] -->
+            <rstart>0.</rstart>
+            <!-- Rain end time [a] -->
+            <rend>130000.</rend>
+            <!-- Precipitation map [m/a] -->
+            <map>data/rain.csv</map>
+        </rain>
+    </precipitation>
+
+    <!-- Stream power law parameters:
+         The stream power law is a simplified form of the usual expression of
+         sediment transport by water flow, in which the transport rate is assumed
+         to be equal to the local carrying capacity, which is itself a function of
+         boundary shear stress. -->
+    <sp_law>
+        <!-- Make the distinction between purely erosive models (0) and erosion /
+            deposition ones (1). Default value is 1 -->
+        <dep>1</dep>
+        <!-- Maximum lake water filling thickness. This parameter is used
+             to defined maximum water level in depression area.
+             Default value is set to 200 m. -->
+        <fillmax>50.</fillmax>
+        <!-- Critical slope used to force aerial deposition for alluvial plain,
+             in [m/m] (optional). -->
+        <slp_cr>0.001</slp_cr>
+        <!-- Maximum percentage of deposition at any given time interval from rivers
+             sedimentary load in alluvial plain. Value ranges between [0,1] (optional). -->
+        <perc_dep>0.5</perc_dep>
+        <!-- Values of m and n indicate how the incision rate scales
+             with bed shear stress for constant value of sediment flux
+             and sediment transport capacity.
+             Generally, m and n are both positive, and their ratio
+             (m/n) is considered to be close to 0.5 -->
+        <m>0.5</m>
+        <n>1.0</n>
+        <!-- The erodibility coefficient is scale-dependent and its value depend
+              on lithology and mean precipitation rate, channel width, flood
+              frequency, channel hydraulics. In case where the erodibility 
+              structure is turned on, this coefficient is applied to the reworked
+              sediments. -->
+        <erodibility>2.e-6</erodibility>>
+        <!-- Number of steps used to distribute marine deposit.
+             Default value is 5 (integer). -->
+        <diffnb>10</diffnb>
+        <!-- Proportion of marine sediment deposited on downstream nodes. It needs
+             to be set between ]0,1[. Default value is 0.9 (optional). -->
+        <diffprop>0.1</diffprop>
+    </sp_law>
+
+   <!-- Hillslope diffusion parameters:
+     Parameterisation of the sediment transport includes the simple creep transport
+     law which states that transport rate depends linearly on topographic gradient or
+     the non-linear diffusion law where a critical slope parameter needs to be defined. -->
+   <creep>
+        <!-- Surface diffusion coefficient [m2/a] -->
+        <caerial>0.1</caerial>
+        <!-- Marine diffusion coefficient [m2/a] -->
+        <cmarine>0.05</cmarine>
+        <!-- Critical slope for non-linear diffusion [m/m] - optional.
+             Default value is set to 0 meaning non-lnear diffusion is not considered. -->
+        <cslp>0.8</cslp>
+        <!-- River transported sediment diffusion
+             coefficient in marine realm [m2/a] -->
+        <criver>20.</criver>
+    </creep>
+    
+    <!-- Erodibility structure simple
+         This option allows you to specify different erodibility values either on the surface
+        or within a number of initial stratigraphic layers. -->
+    <erocoeff>
+        <!-- Number of erosion layers. -->
+        <erolayers>2</erolayers>
+        <!-- The layering is defined from top to bottom, with:
+            - either a constant erodibility value for the entire layer or with an erodibility map
+            - either a constant thickness for the entire layer or with a thickness map -->
+        <!-- Constant erodibility and layer thickness -->
+        <erolay>
+            <!-- Uniform erodibility value for the considered layer. -->
+            <eromap>data/erolaytop.csv</eromap>
+            <!-- Variable thicknesses for the considered layer [m]. -->
+            <thmap>data/erothicktop.csv</thmap>
+        </erolay>
+        <!-- Constant erodibility and variable layer thickness map -->
+        <erolay>
+            <!-- Uniform erodibility value for the considered layer. -->
+            <erocst>5.e-6</erocst>
+            <!-- Variable thicknesses for the considered layer [m]. -->
+            <thcst>1000</thcst>
+        </erolay>
+    </erocoeff>
+    
+    <!-- Output folder path -->
+    <outfolder>output</outfolder>
+
+</badlands>
