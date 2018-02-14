@@ -14,13 +14,12 @@ Workshop materials for pyBadlands version 2.0 running with Docker image [badland
 + [user documentation](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
 + [corinth AGU poster](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
 + [GBR paper](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
-+ **Salles, T., N. Flament, and D. Muller: [Influence of mantle flow on the drainage of eastern Australia since the Jurassic Period](http://dx.doi.org/10.1002/2016GC006617), Geochem. Geophys. Geosyst., 18, doi:10.1002/2016GC006617, 2017** -- [Supplementary materials: Australian Landscape Dynamic](https://github.com/badlands-model/g-cubed-2016)
-+ **Salles, T. & Hardiman, L.: [Badlands: An open-source, flexible and parallel framework to study landscape dynamics](http://dx.doi.org/10.1016/j.cageo.2016.03.011), Computers & Geosciences, 91, 77-89, doi:10.1016/j.cageo.2016.03.011, 2016.**
-+ **Salles, T.: [Badlands: A parallel basin and landscape dynamics model](http://dx.doi.org/10.1016/j.softx.2016.08.005), SoftwareX, 5, 195–202, doi:10.1016/j.softx.2016.08.005, 2016.**
++ [Continental scale paper](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
++ [Badlands v1.0](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
 
 ## Reporting  
 
-If you come accross a bug or if you need some help compiling or using the code [drop us a line](mailto:tristan.salles@sydney.edu.au)
+If you come accross a bug or if you need some help using the material [drop us a line](mailto:tristan.salles@sydney.edu.au)
 
 
 
