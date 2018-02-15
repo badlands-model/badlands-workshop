@@ -61,7 +61,7 @@ def viewData(x0 = None, y0 = None, width = 800, height = 400, linesize = 3, colo
     variable: linesize
         Requested size for the line.
     variable: color
-        
+
     variable: xlegend
         Legend of the x axis.
     variable: ylegend
@@ -253,18 +253,83 @@ def depthID(cs = None, sealevel = None, envIDs = None, side = 'left'):
     variable: side
         Which side of the cross-section: 'left' or 'right'.
     """
-    
+
     if side == 'left':
         envID = np.zeros(len(envIDs))
         for i in range(len(envIDs)):
             envID[i] = np.amin(np.where((cs.secDep[cs.nz-1]) < (sealevel - envIDs[i]))[0])
-    
+
     if side == 'right':
         envID = np.zeros(len(envIDs))
         for i in range(len(envIDs)):
             envID[i] = np.amax(np.where((cs.secDep[cs.nz-1]) < (sealevel - envIDs[i]))[0])
 
     return envID
+
+def interp(scl, r):
+    ''' Interpolate a color scale "scl" to a new one with length "r"
+        Fun usage in IPython notebook:
+        HTML( to_html( to_hsl( interp( cl.scales['11']['qual']['Paired'], 5000 ) ) ) ) '''
+    c = []
+    SCL_FI = len(scl)-1 # final index of color scale
+    # garyfeng:
+    # the following line is buggy.
+    # r = [x * 0.1 for x in range(r)] if isinstance( r, int ) else r
+    r = [x*1.0*SCL_FI/r for x in range(r)] if isinstance( r, int ) else r
+    # end garyfeng
+
+    scl = cl.to_numeric( scl )
+
+    def interp3(fraction, start, end):
+        ''' Interpolate between values of 2, 3-member tuples '''
+        def intp(f, s, e):
+            return s + (e - s)*f
+        return tuple([intp(fraction, start[i], end[i]) for i in range(3)])
+
+    def rgb_to_hsl(rgb):
+        ''' Adapted from M Bostock's RGB to HSL converter in d3.js
+            https://github.com/mbostock/d3/blob/master/src/color/rgb.js '''
+        r,g,b = float(rgb[0])/255.0,\
+                float(rgb[1])/255.0,\
+                float(rgb[2])/255.0
+        mx = max(r, g, b)
+        mn = min(r, g, b)
+        h = s = l = (mx + mn) / 2
+        if mx == mn: # achromatic
+            h = 0
+            s = 0 if l > 0 and l < 1 else h
+        else:
+            d = mx - mn;
+            s =  d / (mx + mn) if l < 0.5 else d / (2 - mx - mn)
+            if mx == r:
+                h = (g - b) / d + ( 6 if g < b else 0 )
+            elif mx == g:
+                h = (b - r) / d + 2
+            else:
+                h = r - g / d + 4
+
+        return (int(round(h*60,4)), int(round(s*100,4)), int(round(l*100,4)))
+
+    for i in r:
+        # garyfeng: c_i could be rounded up so scl[c_i+1] will go off range
+        #c_i = int(i*math.floor(SCL_FI)/round(r[-1])) # start color index
+        #c_i = int(math.floor(i*math.floor(SCL_FI)/round(r[-1]))) # start color index
+        #c_i = if c_i < len(scl)-1 else hsl_o
+
+        c_i = int(math.floor(i))
+        section_min = math.floor(i)
+        section_max = math.ceil(i)
+        fraction = (i-section_min) #/(section_max-section_min)
+
+        hsl_o = rgb_to_hsl( scl[c_i] ) # convert rgb to hls
+        hsl_f = rgb_to_hsl( scl[c_i+1] )
+        #section_min = c_i*r[-1]/SCL_FI
+        #section_max = (c_i+1)*(r[-1]/SCL_FI)
+        #fraction = (i-section_min)/(section_max-section_min)
+        hsl = interp3( fraction, hsl_o, hsl_f )
+        c.append( 'hsl'+str(hsl) )
+
+    return cl.to_hsl( c )
 
 def viewSection(width = 800, height = 400, cs = None, dnlay = None,
                 rangeX = None, rangeY = None, linesize = 3, title = 'Cross section'):
@@ -289,7 +354,7 @@ def viewSection(width = 800, height = 400, cs = None, dnlay = None,
     """
     nlay = len(cs.secDep)
     colors = cl.scales['9']['div']['BrBG']
-    hist = cl.interp( colors, nlay )
+    hist = interp( colors, nlay )
     colorrgb = cl.to_rgb( hist )
 
     trace = {}
@@ -495,8 +560,8 @@ def viewSectionST(width = 800, height = 400, cs = None, dnlay = None, colors=Non
 
     return
 
-def viewWheeler(width = 800, height = 400, time = None, rangeE = None, shoreID_left = None, 
-                shoreID_right = None, height_bar = None, npts = None, color = None, rangeX = None, rangeY = None, 
+def viewWheeler(width = 800, height = 400, time = None, rangeE = None, shoreID_left = None,
+                shoreID_right = None, height_bar = None, npts = None, color = None, rangeX = None, rangeY = None,
                 linesize = 3, title = 'Wheeler Diagram', xlegend = 'xaxis', ylegend = 'yaxis'):
     """
     Plot wheeler diagram colored by deposition environment on a graph.
@@ -528,14 +593,14 @@ def viewWheeler(width = 800, height = 400, time = None, rangeE = None, shoreID_l
 
     fig = plt.figure(figsize = (width,height))
     plt.rc("font", size=9)
-    
+
     patch_handles = []
     for i, d in enumerate(rangeE):
         patch_handles.append(plt.barh(time,d,color=color[i],align='edge',left=d, height=height_bar, edgecolor = "none"))
-    
-    for j in range(0,npts): 
+
+    for j in range(0,npts):
         plt.axhline(time[j], color='k', linewidth=0.5)
-        
+
     plt.plot(shoreID_left, time,'ko',markersize=3)
     plt.plot(shoreID_right, time,'ko',markersize=3)
     #
@@ -543,9 +608,9 @@ def viewWheeler(width = 800, height = 400, time = None, rangeE = None, shoreID_l
     plt.ylim(rangeY)
     plt.xlabel(xlegend)
     plt.ylabel(ylegend)
-    #     
+    #
     plt.title(title)
-    
+
     return
 
 class stratalSection:
@@ -593,20 +658,20 @@ class stratalSection:
         self.secDep = []
         self.secElev = []
 
-        # right side 
+        # right side
         self.shoreID_r = None
         self.accom_r = None
         self.sed_r = None
         self.depoend_r = None
-        
+
         # left side
         self.shoreID_l = None
         self.accom_l = None
         self.sed_l = None
         self.depoend_l = None
-        
+
         return
-    
+
     def _buildShoreline(self, cs = None, cs_b = None, sealevel = None, sealevel_b = None, style = 'basin'):
         """
         Calculate the shoreline trajectory (shoreID), the change of accommodation (accom)
@@ -620,7 +685,7 @@ class stratalSection:
         variable : style
             Model style, can be 'delta' or 'basin'.
         """
-        
+
         if style == 'basin':
             # right side
             shoreID = np.amax(np.where(cs.secDep[cs.nz-1]<=sealevel)[0])
@@ -628,14 +693,14 @@ class stratalSection:
             accom = sealevel - cs.secDep[cs_b.nz-1][shoreID_b]
             sed = cs.secDep[cs.nz-1][shoreID_b] - cs.secDep[cs_b.nz-1][shoreID_b]
             depoend = 0
-        
+
             # left side
             shoreID1 = np.amin(np.where(cs.secDep[cs.nz-1]<=sealevel)[0])
             shoreID1_b = np.amin(np.where(cs_b.secDep[cs_b.nz-1]<=sealevel_b)[0])
             accom1 = sealevel - cs.secDep[cs_b.nz-1][shoreID1_b]
             sed1 = cs.secDep[cs.nz-1][shoreID1_b] - cs.secDep[cs_b.nz-1][shoreID1_b]
             depoend1 = 0
-            
+
         if style == 'delta':
             # right side
             shoreID = np.amax(np.where(cs.secDep[cs.nz-1]>=sealevel)[0])
@@ -643,7 +708,7 @@ class stratalSection:
             accom = sealevel - cs.secDep[cs_b.nz-1][shoreID_b]
             sed = cs.secDep[cs.nz-1][shoreID_b] - cs.secDep[cs_b.nz-1][shoreID_b]
             depoend = np.amax(np.where(cs.secTh[cs.nz-1][shoreID:len(cs.secTh[0])]>0.001)[0]) + shoreID
-        
+
             # left side
             shoreID1 = np.amin(np.where(cs.secDep[cs.nz-1]>=sealevel)[0])
             shoreID1_b = np.amin(np.where(cs_b.secDep[cs_b.nz-1]>=sealevel_b)[0])
@@ -674,23 +739,23 @@ class stratalSection:
         accom_r = np.zeros(npts)
         sed_r = np.zeros(npts)
         depoend_r = np.zeros(npts)
-        
+
         shoreID_l = np.zeros(npts)
         accom_l = np.zeros(npts)
         sed_l = np.zeros(npts)
         depoend_l = np.zeros(npts)
-        
+
         # time 0
         shoreID_r[0], accom_r[0], sed_r[0], depoend_r[0], shoreID_l[0], accom_l[0], sed_l[0], depoend_l[0] = self._buildShoreline(cs = strat_all[0], cs_b = strat_all[0], sealevel = sealevel[0], sealevel_b = sealevel[0], style = style)
         # time 1-npts
         for i in range(1,npts):
             shoreID_r[i], accom_r[i], sed_r[i], depoend_r[i], shoreID_l[i], accom_l[i], sed_l[i], depoend_l[i]  = self._buildShoreline(cs = strat_all[i], cs_b = strat_all[i-1], sealevel = sealevel[i], sealevel_b = sealevel[i-1], style = style)
-            
+
         self.shoreID_r = filters.gaussian_filter1d(shoreID_r, sigma=gfilter)
         self.accom_r = filters.gaussian_filter1d(accom_r, sigma=gfilter)
         self.sed_r = filters.gaussian_filter1d(sed_r, sigma=gfilter)
         self.depoend_r = filters.gaussian_filter1d(depoend_r, sigma=gfilter)
-        
+
         self.shoreID_l = filters.gaussian_filter1d(shoreID_l, sigma=gfilter)
         self.accom_l = filters.gaussian_filter1d(accom_l, sigma=gfilter)
         self.sed_l = filters.gaussian_filter1d(sed_l, sigma=gfilter)

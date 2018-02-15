@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<badlands xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- Regular grid structure -->
+    <grid>
+        <!-- Digital elevation model file path -->
+        <demfile>data/gbrnodes.csv</demfile>
+        <!-- Optional parameter (integer) used to decrease TIN resolution.
+             The default value is set to 1. Increasing the factor
+             value will multiply the digital elevation model resolution
+             accordingly.  -->
+        <resfactor>1</resfactor>
+    </grid>
+
+    <!-- Simulation time structure -->
+    <time>
+        <!-- Simulation start time [a] -->
+        <start>-11000.</start>
+        <!-- Simulation end time [a] -->
+        <end>0.</end>
+        <!-- Maximum time step [a] -->
+        <maxdt>100.</maxdt>
+        <!-- Display interval [a] -->
+        <display>500.</display>
+        <!-- Mesh output frequency based on the display interval. (integer)
+             Considering a display interval of T yrs and a mesh output of K
+             the mesh will be stored every T*K yrs - (optional default is 1) -->
+        <meshout>22</meshout>
+    </time>
+
+    <!-- Sea-level structure -->
+    <sea>
+        <!-- Relative sea-level position [m] -->
+        <position>0.</position>
+        <!-- Sea-level curve - (optional) -->
+        <curve>data/lambeck14.csv</curve>
+    </sea>
+
+    <!-- Simulation stratigraphic structure -->
+    <?ignore
+    <strata>
+        <!-- Stratal grid resolution [m] -->
+        <stratdx>5000.</stratdx>
+        <!-- Stratal layer interval [a] -->
+        <laytime>500.</laytime>
+    </strata>
+    ?>
+
+    <!-- Precipitation structure -->
+    <precipitation>
+        <!-- Number of precipitation events -->
+        <climates>1</climates>
+        <!-- Precipitation definition -->
+        <rain>
+            <!-- Rain start time [a] -->
+            <rstart>-34000.</rstart>
+            <!-- Rain end time [a] -->
+            <rend>0.</rend>
+            <!-- Precipitation value [m/a] - (optional) -->
+            <!--rval>1.</rval-->
+            <!-- Precipitation map [m/a] -->
+            <map>data/gbrrain.csv</map>
+        </rain>
+    </precipitation>
+
+    <!-- Stream power law parameters:
+         The stream power law is a simplified form of the usual expression of
+         sediment transport by water flow, in which the transport rate is assumed
+         to be equal to the local carrying capacity, which is itself a function of
+         boundary shear stress. -->
+    <sp_law>
+        <!-- Critical slope used to force aerial deposition for alluvial plain,
+             in [m/m] (optional). -->
+        <slp_cr>0.003</slp_cr>
+        <!-- Maximum percentage of deposition at any given time interval from rivers
+             sedimentary load in alluvial plain. Value ranges between [0,1] (optional). -->
+        <perc_dep>0.2</perc_dep>
+        <!-- Maximum lake water filling thickness. This parameter is used
+             to defined maximum water level in depression area.
+             Default value is set to 200 m. -->
+        <fillmax>50.</fillmax>
+        <!-- Values of m and n indicate how the incision rate scales
+             with bed shear stress for constant value of sediment flux
+             and sediment transport capacity.
+             Generally, m and n are both positive, and their ratio
+             (m/n) is considered to be close to 0.5 -->
+        <m>0.5</m>
+        <n>1.0</n>
+        <!-- The erodibility coefficient is scale-dependent and its value depend
+              on lithology and mean precipitation rate, channel width, flood
+              frequency, channel hydraulics. -->
+        <erodibility>8.e-6</erodibility>
+        <!-- Number of steps used to distribute marine deposit.
+             Default value is 5 (integer). -->
+        <diffnb>40</diffnb>
+        <!-- Proportion of marine sediment deposited on downstream nodes. It needs
+             to be set between ]0,1[. Default value is 0.9 (optional). -->
+        <diffprop>0.0000025</diffprop>
+    </sp_law>
+
+    <!-- Linear slope diffusion parameters:
+         Parameterisation of the sediment transport includes the simple creep transport
+         law which states that transport rate depends linearly on topographic gradient. -->
+    <creep>
+        <!-- Surface diffusion coefficient [m2/a] -->
+        <caerial>1</caerial>
+        <!-- Marine diffusion coefficient [m2/a] -->
+        <cmarine>3.</cmarine>
+        <!-- River transported sediment diffusion
+             coefficient in marine realm [m2/a] -->
+        <criver>30.</criver>
+    </creep>
+
+    <!-- Wave global parameters structure -->
+    <waveglobal>
+        <!-- Wave model to consider either SWAN or WaveSed.
+             Default is WaveSed (wmodel = 0). -->
+        <wmodel>0</wmodel>
+        <!-- Wave interval [a] -->
+        <twave>100.</twave>
+        <!-- Wave grid resolution [m] -->
+        <wres>2000.</wres>
+        <!-- Maximum depth for wave influence [m] -->
+        <wbase>20</wbase>
+        <!-- Number of wave climate temporal events. -->
+        <events>1</events>
+        <!-- Mean grain size diameter [m] -->
+        <d50>0.0001</d50>
+        <!-- Wave sediment diffusion coefficient. Default is 50. -->
+        <wCd>50.</wCd>
+        <!-- Wave sediment entrainment coefficient. Value needs to be
+             set between ]0,1]. Default is 0.5 -->
+        <wCe>0.35</wCe>
+        <!-- Maximum wave-induced erosion [m] -->
+        <wEro>0.5</wEro>
+        <!-- Maximum depth for wave influence [m] -->
+        <wbase>10</wbase>
+        <!--  Steps used to perform sediment transport.
+              Default is 1000. -->
+        <tsteps>500</tsteps>
+        <!--  Steps used to perform sediment diffusion.
+              Default is 1000. -->
+        <dsteps>500</dsteps>
+    </waveglobal>
+
+    <!-- Wave definition based on wave global structure.
+         The wave field needs to be ordered by increasing start time.
+         The time needs to be continuous between each field without overlaps. -->
+    <wave>
+        <!-- Wave start time [a] -->
+        <start>-14000.</start>
+        <!-- Wave end time [a] -->
+        <end>0</end>
+        <!-- Wave climates number -->
+        <climNb>3</climNb>
+        <!-- Climatic wave definition for WaveSed model. -->
+        <climate>
+            <!-- Percentage of time this event is active during the time interval. -->
+            <perc>0.3</perc>
+            <!-- Significant wave height (in m) -->
+            <hs>2.</hs>
+            <!-- Wave direction in degrees (between 0 and 360) from the
+                 X-axis (horizontal) anti-clock wise. It specifies where the waves are
+                 actually coming from. The wave directions are reduced to 8 possible ones:
+                 East (dir = 0) - North (dir = 90) - West (dir = 180) - South (dir = 270) -
+                 NE (0<dir<90) - NW (90<dir<180) - SW (180<dir<270) - SE (dir>270). -->
+            <dir>0</dir>
+        </climate>
+        <!-- Climatic wave definition for WaveSed model. -->
+        <climate>
+            <!-- Percentage of time this event is active during the time interval. -->
+            <perc>0.3</perc>
+            <!-- Significant wave height (in m) -->
+            <hs>2.</hs>
+            <!-- Wave direction in degrees (between 0 and 360) from the
+                 X-axis (horizontal) anti-clock wise. It specifies where the waves are
+                 actually coming from. The wave directions are reduced to 8 possible ones:
+                 East (dir = 0) - North (dir = 90) - West (dir = 180) - South (dir = 270) -
+                 NE (0<dir<90) - NW (90<dir<180) - SW (180<dir<270) - SE (dir>270). -->
+            <dir>30</dir>
+        </climate>
+        <!-- Climatic wave definition for WaveSed model. -->
+        <climate>
+            <!-- Percentage of time this event is active during the time interval. -->
+            <perc>0.4</perc>
+            <!-- Significant wave height (in m) -->
+            <hs>2.</hs>
+            <!-- Wave direction in degrees (between 0 and 360) from the
+                 X-axis (horizontal) anti-clock wise. It specifies where the waves are
+                 actually coming from. The wave directions are reduced to 8 possible ones:
+                 East (dir = 0) - North (dir = 90) - West (dir = 180) - South (dir = 270) -
+                 NE (0<dir<90) - NW (90<dir<180) - SW (180<dir<270) - SE (dir>270). -->
+            <dir>300</dir>
+        </climate>
+    </wave>
+
+    <!-- Specify species 1 growth functions based on 3 main controlling forces: depth,
+         sedimentation rate and ocean wave height.
+         These functions are defined as csv files produced using pre-processing IPython
+         notebook. -->
+
+    <carb>
+        <!-- Specify initial basement structure (0) for hard rock and (1) for loose sediment. -->
+        <baseMap>data/gbrbase.csv</baseMap>
+        <!-- Wave interval [a] -->
+        <tcarb>100.</tcarb>
+    </carb>
+
+    <species1>
+        <!-- Species 1 growth rate [m/yr]. -->
+        <growth>0.009</growth>
+        <!-- Depth control on species 1 evolution. -->
+        <depthControl>data/depthcontrol1.csv</depthControl>
+        <!-- Ocean wave height control on species 1 evolution. -->
+        <waveControl>data/wavecontrolcarb1.csv</waveControl>
+        <!-- Sedimentation control on species 1 evolution. -->
+        <sedControl>data/sedcontrolcarb1.csv</sedControl>
+    </species1>
+
+    <!-- Specify species 2 growth functions based on 3 main controlling forces: depth,
+         sedimentation rate and ocean wave height.
+         These functions are defined as csv files produced using pre-processing IPython
+         notebook. -->
+    <species2>
+        <!-- Species 2 growth rate [m/yr]. -->
+        <growth>0.005</growth>
+        <!-- Depth control on species 2 evolution. -->
+        <depthControl>data/depthcontrol2.csv</depthControl>
+        <!-- Ocean wave height control on species 2 evolution. -->
+        <waveControl>data/wavecontrolcarb2.csv</waveControl>
+        <!-- Sedimentation control on species 2 evolution. -->
+        <sedControl>data/sedcontrolcarb2.csv</sedControl>
+    </species2>
+
+    <!-- Specify pelagic deposition functions based on depth control.
+         The function is defined as csv file produced using pre-processing IPython
+         notebook. -->
+    <pelagic>
+        <!-- Pelagic deposition rate [m/yr]. -->
+        <growth>0.00005</growth>
+        <!-- Depth control on pelagic deposition. -->
+        <depthControl>data/pelagiccontrol.csv</depthControl>
+    </pelagic>
+
+    <!-- Output folder path -->
+    <outfolder>output</outfolder>
+
+</badlands>
