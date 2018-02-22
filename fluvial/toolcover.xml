@@ -24,7 +24,7 @@
         <!-- Maximum time step [a] -->
         <maxdt>250.</maxdt>
         <!-- Display interval [a] -->
-        <display>20000.</display>
+        <display>100000.</display>
     </time>
 
     <!-- Sea-level structure -->
