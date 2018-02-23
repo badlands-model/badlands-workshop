@@ -11,7 +11,7 @@
              The default value is set to 1. Increasing the factor
              value will multiply the digital elevation model resolution
              accordingly.  -->
-        <resfactor>1</resfactor>
+        <resfactor>2</resfactor>
     </grid>
 
     <!-- Simulation time structure -->
