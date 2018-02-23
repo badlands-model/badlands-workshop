@@ -9,7 +9,7 @@
              The default value is set to 1. Increasing the factor
              value will multiply the digital elevation model resolution
              accordingly.  -->
-        <resfactor>1</resfactor>
+        <resfactor>2</resfactor>
         <!-- Boundary type: flat, slope, fix or wall -->
         <boundary>fixed</boundary>
         <nopit>0</nopit>
@@ -24,7 +24,7 @@
         <!-- Maximum time step [a] -->
         <maxdt>250.</maxdt>
         <!-- Display interval [a] -->
-        <display>20000.</display>
+        <display>50000.</display>
     </time>
 
     <!-- Sea-level structure -->
