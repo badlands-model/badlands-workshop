@@ -9,7 +9,7 @@
              The default value is set to 1. Increasing the factor
              value will multiply the digital elevation model resolution
              accordingly.  -->
-        <resfactor>2</resfactor>
+        <resfactor>1</resfactor>
         <!-- Boundary type: flat, slope, fix or wall -->
         <boundary>fixed</boundary>
         <nopit>0</nopit>
@@ -22,9 +22,9 @@
         <!-- Simulation end time [a] -->
         <end>10000000.</end>
         <!-- Maximum time step [a] -->
-        <maxdt>250.</maxdt>
+        <maxdt>500.</maxdt>
         <!-- Display interval [a] -->
-        <display>50000.</display>
+        <display>20000.</display>
     </time>
 
     <!-- Sea-level structure -->
@@ -38,13 +38,22 @@
         <!-- Is 3D displacements on ? (1:on - 0:off). Default is 0.-->
         <disp3d>0</disp3d>
 	      <!-- Number of tectonic events -->
-        <events>1</events>
+        <events>2</events>
         <!-- Displacement definition -->
         <disp>
             <!-- Displacement start time [a] -->
             <dstart>0.</dstart>
             <!-- Displacement end time [a] -->
             <dend>5000000.</dend>
+            <!-- Displacement map [m] -->
+            <dfile>data/displacement.csv</dfile>
+        </disp>
+        <!-- Displacement definition -->
+        <disp>
+            <!-- Displacement start time [a] -->
+            <dstart>5000000</dstart>
+            <!-- Displacement end time [a] -->
+            <dend>10000000.</dend>
             <!-- Displacement map [m] -->
             <dfile>data/displacement.csv</dfile>
         </disp>
