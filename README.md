@@ -21,7 +21,7 @@ Workshop materials for pyBadlands version 2.0 running with Docker image [badland
 
 #### Stratigraphy & Wheeler diagram in pyBadlands
 
-[Youtube Example](https://youtu.be/VRXR86uRnUY)
+[Youtube video](https://youtu.be/VRXR86uRnUY)
 
 <div align="center">
     <img width=500 src="https://github.com/badlands-model/Badlands-Code/blob/master/badlands-doc/figures/stratalDing.png" alt="YouTube" title="Youtube"</img>
