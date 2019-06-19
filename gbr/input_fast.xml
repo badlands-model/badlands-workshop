@@ -194,21 +194,36 @@
         </climate>
     </wave>
 
+    <!-- Carbonate growth definition based on carbonate global structure.
+         The events need to be ordered by increasing start time.
+         The time needs to be continuous between each event without overlaps. -->
+
+    <carb>
+        <!-- Specify initial basement structure (0) for hard rock and (1) for loose sediment. -->
+        <baseMap>data/gbrbase.csv</baseMap>
+        <!-- Carbonate growth interval [a] -->
+        <tcarb>100.</tcarb>
+        <!-- Specify the number of reef growth events -->
+        <growth_events>1</growth_events>
+        <!-- Specify Species 1 and 2 growth rates for specific reef growth events-->
+        <event>
+            <!-- Reef growth event start time [a] -->
+            <gstart>-11000.</gstart>
+            <!-- Reef growth event end time [a] -->
+            <gend>0.</gend>
+            <!-- Species 1 growth rate during event [m/yr]. -->
+            <growth_sp1>0.009</growth_sp1>
+            <!-- Species 2 growth rate during event [m/yr]. -->
+            <growth_sp2>0.005</growth_sp2>
+        </event>
+    </carb>
+
     <!-- Specify species 1 growth functions based on 3 main controlling forces: depth,
          sedimentation rate and ocean wave height.
          These functions are defined as csv files produced using pre-processing IPython
          notebook. -->
 
-    <carb>
-        <!-- Specify initial basement structure (0) for hard rock and (1) for loose sediment. -->
-        <baseMap>data/gbrbase.csv</baseMap>
-        <!-- Wave interval [a] -->
-        <tcarb>100.</tcarb>
-    </carb>
-
     <species1>
-        <!-- Species 1 growth rate [m/yr]. -->
-        <growth>0.009</growth>
         <!-- Depth control on species 1 evolution. -->
         <depthControl>data/depthcontrol1.csv</depthControl>
         <!-- Ocean wave height control on species 1 evolution. -->
@@ -222,8 +237,6 @@
          These functions are defined as csv files produced using pre-processing IPython
          notebook. -->
     <species2>
-        <!-- Species 2 growth rate [m/yr]. -->
-        <growth>0.005</growth>
         <!-- Depth control on species 2 evolution. -->
         <depthControl>data/depthcontrol2.csv</depthControl>
         <!-- Ocean wave height control on species 2 evolution. -->
