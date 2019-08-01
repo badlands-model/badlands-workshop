@@ -44,7 +44,7 @@ from scipy.interpolate import spline
 from matplotlib import cm
 
 # Import badlands grid generation toolbox
-import pybadlands_companion.hydroGrid as hydr
+import badlands_companion.hydroGrid as hydr
 
 
 def two_scales(ax1, time, data0, data1, c1, c2, font):

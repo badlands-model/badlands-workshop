@@ -12,7 +12,7 @@ import re
 import sys
 import time
 
-from pyBadlands.model import Model
+from badlands.model import Model
 
 base_path = '.'
 xml_name = 'hrtest.xml'

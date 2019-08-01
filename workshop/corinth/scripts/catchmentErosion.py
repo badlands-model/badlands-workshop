@@ -44,7 +44,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib import cm
 
 # Import badlands grid generation toolbox
-import pybadlands_companion.hydroGrid as hydr
+import badlands_companion.hydroGrid as hydr
 
 class catchmentErosion:
     """

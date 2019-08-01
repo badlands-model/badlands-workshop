@@ -1,7 +1,7 @@
 *.pyc
 *.sublime-*
 *.so
-pyBadlands.egg-info/
+badlands.egg-info/
 *.mod
 *.o
 *.swp
