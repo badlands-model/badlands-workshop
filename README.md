@@ -1,7 +1,7 @@
 # pyBadlands Workshop
 
 <div align="center">
-    <img width=1000 src="https://github.com/badlands-model/Badlands-Code/blob/master/badlands-doc/figures/StratigraphciModelling.png" alt="sketch Badlands" title="sketch of Badlands range of models."</img>
+    <img width=1000 src="https://github.com/badlands-model/badlands/blob/master/badlands/docs/img/view.jpg?raw=true" alt="sketch Badlands" title="sketch of Badlands range of models."</img>
 </div>
 
 [![DOI](https://zenodo.org/badge/51286954.svg)](https://zenodo.org/badge/latestdoi/51286954)
