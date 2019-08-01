@@ -1,36 +1,35 @@
-# pyBadlands Workshop
+Badlands Workshop & Examples
+=====
+
+[![Documentation Status](https://readthedocs.org/projects/badlands/badge/?version=latest)](https://badlands.readthedocs.io/en/latest/?badge=latest)      [![DOI](https://zenodo.org/badge/51286954.svg)](https://zenodo.org/badge/latestdoi/51286954)
 
 <div align="center">
     <img width=1000 src="https://github.com/badlands-model/badlands/blob/master/badlands/docs/img/view.jpg?raw=true" alt="sketch Badlands" title="sketch of Badlands range of models."</img>
 </div>
 
-[![DOI](https://zenodo.org/badge/51286954.svg)](https://zenodo.org/badge/latestdoi/51286954)
+
+Basin and Landscape Dynamics (Badlands) is a long-term surface evolution model built to simulate landscape development, sediment transport and sedimentary basins formation from upstream regions down to marine environments.
 
 
-Workshop materials for pyBadlands version 2.0 running with Docker image [badlandsmodel/pybadlands-demo-serial](https://hub.docker.com/r/badlandsmodel/pybadlands-demo-serial/~/dockerfile/) 
-
-## Additional resources
-
-+ [user documentation](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
-+ [corinth AGU poster](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
-+ [GBR paper](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
-+ [Continental scale paper](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
-+ [Badlands v1.0](https://cloudstor.aarnet.edu.au/plus/s/u5xp09EDQfsS3zv)
-
-***
-
-#### Stratigraphy & Wheeler diagram in pyBadlands
-
-[Youtube video](https://youtu.be/VRXR86uRnUY)
-
-<div align="center">
-    <img width=500 src="https://github.com/badlands-model/Badlands-Code/blob/master/badlands-doc/figures/stratalDing.png" alt="YouTube" title="Youtube"</img>
-</div>
-
-## Reporting  
-
-If you come accross a bug or if you need some help using the material [drop us a line](mailto:tristan.salles@sydney.edu.au)
+> This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 
+## What’s in the box?
+
+Badlands is an open-source Python-based code and can be used to simulate:
+
++ hillslope processes (linear & non-linear diffusion),
++ fluvial incision (Stream Power Law, Transport Capacity Law)
++ sediment transport and deposition,
++ wave-induced longshore drift transport,
++ reef growth and carbonate platform formation,
++ submarine gravity currents (turbidity currents),
++ spatially and temporally varying tectonic (horizontal + vertical displacements) and
++ effects of climate changes (rainfall) and/or sea-level fluctuations.
+
+
+## Documentation & Installation
+
+**https://badlands.readthedocs.io/**
 
 
