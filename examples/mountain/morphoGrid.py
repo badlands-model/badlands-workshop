@@ -33,20 +33,16 @@ class morphoGrid:
     Class for analysing morphometrics from Badlands outputs.
     """
 
-    def __init__(self, folder=None, ncpus=1, bbox=None, dx=None):
+    def __init__(self, folder=None, bbox=None, dx=None):
         """
-        Initialization function which takes the folder path to Badlands outputs
-        and the number of CPUs used to run the simulation. It also takes the
-        bounding box and discretization value at which one wants to interpolate
-        the data.
+        Initialization function which takes the folder path to Badlands outputs. 
+        It also takes the bounding box and discretization value at which one wants 
+        to interpolate the data.
 
         Parameters
         ----------
         variable : folder
             Folder path to Badlands outputs.
-
-        variable: ncpus
-            Number of CPUs used to run the simulation.
 
         variable: bbox
             Bounding box extent SW corner and NE corner.
@@ -60,7 +56,6 @@ class morphoGrid:
         if not os.path.isdir(folder):
             raise RuntimeError('The given folder cannot be found or the path is incomplete.')
 
-        self.ncpus = ncpus
         self.x = None
         self.y = None
         self.z = None
@@ -95,22 +90,14 @@ class morphoGrid:
 
         """
 
-        for i in range(0, self.ncpus):
-            df = h5py.File('%s/tin.time%s.p%s.hdf5'%(self.folder, timestep, i), 'r')
-            coords = np.array((df['/coords']))
-            cumdiff = np.array((df['/cumdiff']))
-            discharge = np.array((df['/discharge']))
-            if i == 0:
-                x, y, z = np.hsplit(coords, 3)
-                c = cumdiff
-                d = discharge
-            else:
-                c = np.append(c, cumdiff)
-                d = np.append(d, discharge)
-                x = np.append(x, coords[:,0])
-                y = np.append(y, coords[:,1])
-                z = np.append(z, coords[:,2])
-
+        df = h5py.File('%s/tin.time%s.hdf5'%(self.folder, timestep), 'r')
+        coords = np.array((df['/coords']))
+        cumdiff = np.array((df['/cumdiff']))
+        discharge = np.array((df['/discharge']))
+        x, y, z = np.hsplit(coords, 3)
+        c = cumdiff
+        d = discharge
+    
         if self.bbox == None:
             self.nx = int((x.max() - x.min())/self.dx+1)
             self.ny = int((y.max() - y.min())/self.dx+1)
@@ -539,12 +526,15 @@ class morphoGrid:
         """
 
         meanZ = map(self.profile_mean, zip(*pData))
+        veZ = np.asarray(list(meanZ))
         minZ = map(self.profile_min, zip(*pData))
+        viZ = np.asarray(list(minZ))
         maxZ = map(self.profile_max, zip(*pData))
+        vaZ = np.asarray(list(maxZ))
 
         trace0 = Scatter(
             x=pDist,
-            y=maxZ,
+            y=vaZ,
             mode='lines',
             line=dict(
                 shape='spline',
@@ -553,10 +543,10 @@ class morphoGrid:
             ),
             name='max'
         )
-
+        
         trace1 = Scatter(
             x=pDist,
-            y=minZ,
+            y=viZ,
             mode='lines',
             line=dict(
                 shape='spline',
@@ -571,7 +561,7 @@ class morphoGrid:
 
         trace2 = Scatter(
             x=pDist,
-            y=meanZ,
+            y=veZ,
             mode='lines',
             line=dict(
                 shape='spline',
@@ -587,11 +577,10 @@ class morphoGrid:
             width=width,
             height=height
         )
-
+        
         fig = Figure(data=data, layout=layout)
         plotly.offline.iplot(fig)
-
-        return minZ, meanZ, maxZ
+        return viZ, veZ, vaZ
 
     def timeProfiles(self, pData = None, pDist = None, width = 800, height = 400, linesize = 2,
                     title = 'Profile evolution with time'):
@@ -654,7 +643,7 @@ class morphoGrid:
         plotly.offline.iplot(fig)
 
     def viewGrid(self, width = 800, height = 800,
-                 Dmin = None, Dmax = None, color = None, reverse=False,
+                 Dmin = None, Dmax = None, color = None, 
                  Data = None, title='Grid'):
         """
         Use Plotly library to visualise a dataset in 2D.
@@ -677,9 +666,6 @@ class morphoGrid:
         variable: color
             Color scale.
 
-        variable: reverse
-            Reverse color scale.
-
         variable: Data
             Dataset to plot.
 
@@ -693,8 +679,7 @@ class morphoGrid:
         data = [
             Heatmap(
                 z = Data, colorscale = color,\
-                    zmin = Dmin, zmax = Dmax,
-                    reversescale=reverse
+                    zmin = Dmin, zmax = Dmax
                 )
             ]
         dy = self.bbox[3]-self.bbox[1]
@@ -848,7 +833,7 @@ class morphoGrid:
         return
 
     def viewSurf(self, width = 800, height = 800,
-                 zmin = None, zmax = None, color = None, reverse=False,
+                 zmin = None, zmax = None, color = None,
                  vData = None, subsample = 1, title='Surface'):
         """
         Use Plotly library to visualise a dataset over a surface in 3D.
@@ -870,9 +855,6 @@ class morphoGrid:
 
         variable: color
             Color scale.
-
-        variable: reverse
-            Reverse color scale.
 
         variable: vData
             Dataset to plot.
@@ -898,8 +880,7 @@ class morphoGrid:
                     x = self.x[::subsample,::subsample],
                     y = self.y[::subsample,::subsample],
                     z = vData[::subsample,::subsample],
-                    colorscale = color,
-                    reversescale=reverse
+                    colorscale = color
                 )
             ])
 

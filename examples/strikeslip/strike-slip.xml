@@ -18,6 +18,8 @@
         <start>0.</start>
         <!-- Simulation end time [a] -->
         <end>100000.</end>
+        <!-- Minimum time step [a]. Default is 1. -->
+        <mindt>50.</mindt>
         <!-- Display interval [a] -->
         <display>2000.</display>
     </time>
@@ -43,7 +45,7 @@
              in each maps are larger than the TIN resolution. In this
              case, it is recommended to split each displacement periods
              in evenly spaced intervals of given time duration [a]. -->
-        <time3d>500.</time3d>
+        <time3d>1000.</time3d>
         <!-- Number of tectonic events -->
         <events>5</events>
         <!-- Displacement definition -->
@@ -51,39 +53,39 @@
             <!-- Displacement start time [a] -->
             <dstart>2000.</dstart>
             <!-- Displacement end time [a] -->
-            <dend>21500.0</dend>
+            <dend>22000.0</dend>
             <!-- Displacement map [m] -->
             <dfile>data/uplift0.csv</dfile>
         </disp>
         <disp>
             <!-- Displacement start time [a] -->
-            <dstart>21500.</dstart>
+            <dstart>22000.</dstart>
             <!-- Displacement end time [a] -->
-            <dend>41500.0</dend>
+            <dend>42000.0</dend>
             <!-- Displacement map [m] -->
             <dfile>data/uplift0.csv</dfile>
         </disp>
         <disp>
             <!-- Displacement start time [a] -->
-            <dstart>41500.</dstart>
+            <dstart>42000.</dstart>
             <!-- Displacement end time [a] -->
-            <dend>61500.0</dend>
+            <dend>62000.0</dend>
             <!-- Displacement map [m] -->
             <dfile>data/uplift0.csv</dfile>
         </disp>
         <disp>
             <!-- Displacement start time [a] -->
-            <dstart>61500.</dstart>
+            <dstart>62000.</dstart>
             <!-- Displacement end time [a] -->
-            <dend>81500.0</dend>
+            <dend>82000.0</dend>
             <!-- Displacement map [m] -->
             <dfile>data/uplift0.csv</dfile>
         </disp>
         <disp>
             <!-- Displacement start time [a] -->
-            <dstart>81500.</dstart>
+            <dstart>82000.</dstart>
             <!-- Displacement end time [a] -->
-            <dend>100000.0</dend>
+            <dend>102000.0</dend>
             <!-- Displacement map [m] -->
             <dfile>data/uplift0.csv</dfile>
         </disp>

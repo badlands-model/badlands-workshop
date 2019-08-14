@@ -138,7 +138,7 @@ def viewSection(width = 800, height = 400, cs = None, dnlay = None,
         y=cs.secElev[0],
         mode='lines',
         line=dict(
-            shape='line',
+            shape='spline',
             width = linesize+2,
             color = 'rgb(0, 0, 0)'
         )
@@ -151,7 +151,7 @@ def viewSection(width = 800, height = 400, cs = None, dnlay = None,
             y=cs.secElev[i],
             mode='lines',
             line=dict(
-                shape='line',
+                shape='spline',
                 width = linesize,
                 color = 'rgb(0,0,0)'
             ),
@@ -166,7 +166,7 @@ def viewSection(width = 800, height = 400, cs = None, dnlay = None,
         y=cs.secElev[nlay-1],
         mode='lines',
         line=dict(
-            shape='line',
+            shape='spline',
             width = linesize+2,
             color = 'rgb(0, 0, 0)'
         ),
@@ -180,7 +180,7 @@ def viewSection(width = 800, height = 400, cs = None, dnlay = None,
         y=cs.secElev[0],
         mode='lines',
         line=dict(
-            shape='line',
+            shape='spline',
             width = linesize+2,
             color = 'rgb(0, 0, 0)'
         )
@@ -297,18 +297,16 @@ class sectionCarbonate:
 
         return
 
-    def _loadTIN(self, step, rank):
+    def _loadTIN(self, step):
         """
         Load TIN grid to extract cells connectivity and vertices position.
         Parameters
         ----------
         variable : step
             Specific step at which the TIN variables will be read.
-        variable: rank
-            TIN file for the considered CPU.
         """
 
-        h5file = self.folder+'/'+self.h5TIN+str(step)+'.p'+str(rank)+'.hdf5'
+        h5file = self.folder+'/'+self.h5TIN+str(step)+'.hdf5'
         df = h5py.File(h5file, 'r')
         coords = np.array((df['/coords']))
         cells = np.array((df['/cells']),dtype=int)
@@ -406,18 +404,16 @@ class sectionCarbonate:
 
         return
 
-    def _loadStrati(self, step, rank):
+    def _loadStrati(self, step):
         """
         Load stratigraphic dataset.
         Parameters
         ----------
         variable : step
             Specific step at which the TIN variables will be read.
-        variable: rank
-            Stratigraphic grid for the considered CPU.
         """
 
-        h5file = self.folder+'/'+self.h5Strat+str(step)+'.p'+str(rank)+'.hdf5'
+        h5file = self.folder+'/'+self.h5Strat+str(step)+'.hdf5'
         df = h5py.File(h5file, 'r')
         rockNb = len(df.keys())-1
         paleoH = np.array((df['/paleoDepth']))
@@ -433,11 +429,11 @@ class sectionCarbonate:
         s = self.step
 
         # Load TIN grid for specific time step
-        coords, cells = self._loadTIN(s,0)
+        coords, cells = self._loadTIN(s)
         x, y, z = np.hsplit(coords, 3)
 
         # Load STRATI dataset
-        rockTH, paleoH = self._loadStrati(s,0)
+        rockTH, paleoH = self._loadStrati(s)
         tmpRock = rockTH[:,1:]
         tmpPaleo = paleoH[:,1:]
 

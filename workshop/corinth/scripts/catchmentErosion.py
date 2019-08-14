@@ -82,7 +82,7 @@ class catchmentErosion:
         self.pointXY = pointXY
         self.hydro = None
         if self.pointXY is not None:
-            hydro = hydr.hydroGrid(folder=self.folder, ncpus=1, ptXY = pointXY)
+            hydro = hydr.hydroGrid(folder=self.folder, ptXY = pointXY)
             hydro.getCatchment(timestep)
             self.hydro = hydro
 
@@ -124,8 +124,8 @@ class catchmentErosion:
             lposz[lposz<0.] = 0.
             volsed = np.sum(lposz)*(self.dx*self.dx)
 
-        print 'Volume of deposited sediment in cubic metres: ',volsed
-        print 'Averaged annual deposited sediment volume in cubic metres per year: ',volsed/time
+        print('Volume of deposited sediment in cubic metres: ',volsed)
+        print('Averaged annual deposited sediment volume in cubic metres per year: ',volsed/time)
 
         return
 
@@ -228,7 +228,7 @@ class catchmentErosion:
         if not os.path.isdir(self.folder):
             raise RuntimeError('The given folder cannot be found or the path is incomplete.')
 
-        df = h5py.File('%s/tin.time%s.p%s.hdf5'%(self.folder, self.timestep, 0), 'r')
+        df = h5py.File('%s/tin.time%s.hdf5'%(self.folder, self.timestep), 'r')
         coords = np.array((df['/coords']))
         cumdiff = np.array((df['/cumdiff']))
         x, y, z = np.hsplit(coords, 3)
@@ -299,9 +299,9 @@ class catchmentErosion:
         r,c = np.where(self.rdz < -0.001)
         volsed = np.sum(self.rdz[r,c])*(self.dx*self.dx)
 
-        print 'Volume of sediment eroded in cubic metres: ',-volsed
-        print 'Annual volume of sediment eroded in cubic metres per year: ',-volsed/time
-        print 'Average erosion rate in mm per year: ',-(np.sum(self.rdz[r,c])/time)*1000./len(r)
+        print('Volume of sediment eroded in cubic metres: ',-volsed)
+        print('Annual volume of sediment eroded in cubic metres per year: ',-volsed/time)
+        print('Average erosion rate in mm per year: ',-(np.sum(self.rdz[r,c])/time)*1000./len(r))
 
         return
 

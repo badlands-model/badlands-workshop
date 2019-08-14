@@ -61,7 +61,7 @@ def loadDataTIN(folder=None, timestep=0):
     if not os.path.isdir(folder):
         raise RuntimeError('The given folder cannot be found or the path is incomplete.')
 
-    df = h5py.File('%s/tin.time%s.p%s.hdf5'%(folder, timestep, 0), 'r')
+    df = h5py.File('%s/tin.time%s.hdf5'%(folder, timestep), 'r')
     coords = np.array((df['/coords']))
     cumdiff = np.array((df['/cumdiff']))
     cumhill = np.array((df['/cumhill']))
@@ -91,7 +91,7 @@ def readDataset(folder=None, isldPos=None, isldRadius=None, refPos=None, pltRadi
 
     for k in range(len(steps)):
         if k%50 == 0:
-            print 'Time step:',steps[k]
+            print('Time step:',steps[k])
 
         nfile =folder
         xyz, ed = loadDataTIN(nfile+'/h5',steps[k])

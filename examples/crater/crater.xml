@@ -11,7 +11,7 @@
              The default value is set to 1. Increasing the factor
              value will multiply the digital elevation model resolution
              accordingly.  -->
-        <resfactor>1</resfactor>
+        <resfactor>2</resfactor>
     </grid>
 
     <!-- Simulation time structure -->
@@ -52,7 +52,7 @@
         <!-- Maximum lake water filling thickness. This parameter is used
              to defined maximum water level in depression area.
              Default value is set to 200 m. -->
-        <fillmax>15.</fillmax>
+        <fillmax>20.</fillmax>
         <!-- Values of m and n indicate how the incision rate scales
              with bed shear stress for constant value of sediment flux
              and sediment transport capacity.
@@ -71,7 +71,7 @@
          law which states that transport rate depends linearly on topographic gradient. -->
     <creep>
         <!-- Surface diffusion coefficient [m2/a] -->
-        <caerial>2.5e-2</caerial>
+        <caerial>3.e-2</caerial>
         <!-- Marine diffusion coefficient [m2/a] -->
         <cmarine>5.e-2</cmarine>
         <!-- River transported sediment diffusion

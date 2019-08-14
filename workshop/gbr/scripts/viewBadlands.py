@@ -46,7 +46,7 @@ def loadStep(folder, step,timev=True):
                 sea = val[2]
             line = fp.readline()
     if timev:
-        print 'Rendering for time step '+str(step)+': '+str(time)+' years'
+        print('Rendering for time step '+str(step)+': '+str(time)+' years')
 
     return tin,flow,sea
 

@@ -40,7 +40,7 @@ from scipy import signal
 warnings.filterwarnings('ignore')
 
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from scipy.interpolate import spline
+from scipy.interpolate import interp1d
 from matplotlib import cm
 
 # Import badlands grid generation toolbox
@@ -159,8 +159,13 @@ def temporalGrowth(folder='output',step=None,vtime=None,smooth=None,vrange=None)
         return vtime,erorate,deporate
     else:
         timenew = np.linspace(vtime.min(),vtime.max(),smooth)
-        erorate_smooth = spline(vtime,erorate,timenew)
-        deporate_smooth = spline(vtime,deporate,timenew)
+        #erorate_smooth = spline(vtime,erorate,timenew)
+        #deporate_smooth = spline(vtime,deporate,timenew)
+        fe = interp1d(vtime,erorate, kind='cubic') 
+        fd = interp1d(vtime,deporate, kind='cubic')
+        erorate_smooth = fe(timenew)
+        deporate_smooth = fd(timenew)
+        
         erorate_smooth[erorate_smooth<0]=0
         deporate_smooth[deporate_smooth<0]=0
         return timenew,erorate_smooth,deporate_smooth
@@ -205,7 +210,7 @@ class analyseWaveReef:
         self.pointXY = pointXY
         self.hydro = None
         if self.pointXY is not None:
-            hydro = hydr.hydroGrid(folder=self.folder, ncpus=1, ptXY = pointXY)
+            hydro = hydr.hydroGrid(folder=self.folder, ptXY = pointXY)
             hydro.getCatchment(timestep)
             self.hydro = hydro
 
@@ -255,9 +260,9 @@ class analyseWaveReef:
         if out:
             return (np.sum(lposz/time)/len(r))
         else:
-            print 'Volume of deposited sediment in cubic metres: ',volsed
-            print 'Averaged annual deposited sediment volume in cubic metres per year: ',volsed/time
-            print 'Average deposition rate in mm per year: ',ratesed
+            print('Volume of deposited sediment in cubic metres: ',volsed)
+            print('Averaged annual deposited sediment volume in cubic metres per year: ',volsed/time)
+            print('Average deposition rate in mm per year: ',ratesed)
             return
 
     def plotdataSet(self, title='Title', data=None, color=None,  crange=None,
@@ -359,7 +364,7 @@ class analyseWaveReef:
         if not os.path.isdir(self.folder):
             raise RuntimeError('The given folder cannot be found or the path is incomplete.')
 
-        df = h5py.File('%s/tin.time%s.p%s.hdf5'%(self.folder, self.timestep, 0), 'r')
+        df = h5py.File('%s/tin.time%s.hdf5'%(self.folder, self.timestep), 'r')
         coords = np.array((df['/coords']))
         cumdiff = np.array((df['/cumdiff']))
         wavesed = np.array((df['/cumwave']))
@@ -495,9 +500,9 @@ class analyseWaveReef:
         if out:
             return -(np.sum(lposz)/len(r))
         else:
-            print 'Volume of eroded sediment in cubic metres: ',volsed
-            print 'Averaged annual eroded sediment volume in cubic metres per year: ',volsed/time
-            print 'Average erosion rate in mm per year: ',ratesed
+            print('Volume of eroded sediment in cubic metres: ',volsed)
+            print('Averaged annual eroded sediment volume in cubic metres per year: ',volsed/time)
+            print('Average erosion rate in mm per year: ',ratesed)
             return
 
     def plotEroElev(self,time=None):

@@ -19,7 +19,7 @@ import lavavu
 import h5py
 import numpy
 
-def loadStep(folder, step,timev=True):
+def loadStep(folder, step, timev=True):
     """ Loading a Badlands output.
 
     Parameters
@@ -31,8 +31,8 @@ def loadStep(folder, step,timev=True):
     """
 
     # Load output files
-    flow = h5py.File(folder+'/h5/flow.time'+str(step)+'.p0.hdf5', 'r')
-    tin = h5py.File(folder+'/h5/tin.time'+str(step)+'.p0.hdf5', 'r')
+    flow = h5py.File(folder+'/h5/flow.time'+str(step)+'.hdf5', 'r')
+    tin = h5py.File(folder+'/h5/tin.time'+str(step)+'.hdf5', 'r')
 
     # Get the sea level history and depositional time for each stratigraphic layer
     with open(folder+'/xmf/tin.time'+str(step)+'.xmf') as fp:
@@ -46,11 +46,11 @@ def loadStep(folder, step,timev=True):
                 sea = val[2]
             line = fp.readline()
     if timev:
-        print 'Rendering for time step '+str(step)+': '+str(time)+' years'
+        print('Rendering for time step '+str(step)+': '+str(time)+' years')
 
     return tin,flow,sea
 
-def view1Step(tin, flow, sea, scaleZ=40,  maxZ=100, maxED=20,flowlines=False):
+def view1Step(tin, flow, sea, scaleZ=40,  maxZ=100, maxED=20, flowlines=False):
     """Visualise a given time step of Badlands output.
 
     Parameters

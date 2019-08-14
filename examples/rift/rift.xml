@@ -18,6 +18,8 @@
         <start>0.</start>
         <!-- Simulation end time [a] -->
         <end>250000.</end>
+        <!-- Minimum time step [a] -->
+        <mindt>100.</mindt>
         <!-- Display interval [a] -->
         <display>5000.</display>
     </time>
@@ -27,7 +29,7 @@
         <!-- Stratal grid resolution [m] -->
         <stratdx>2000.</stratdx>
         <!-- Stratal layer interval [a] -->
-        <laytime>2500.</laytime>
+        <laytime>5000.</laytime>
     </strata>
 
     <!-- Sea-level structure -->
@@ -118,10 +120,6 @@
          to be equal to the local carrying capacity, which is itself a function of
          boundary shear stress. -->
     <sp_law>
-        <!-- Maximum lake water filling thickness. This parameter is used
-             to defined maximum water level in depression area.
-             Default value is set to 200 m. -->
-        <fillmax>100.</fillmax>
         <!-- Values of m and n indicate how the incision rate scales
              with bed shear stress for constant value of sediment flux
              and sediment transport capacity.
@@ -132,7 +130,7 @@
          <!-- The erodibility coefficient is scale-dependent and its value depend
               on lithology and mean precipitation rate, channel width, flood
               frequency, channel hydraulics. -->
-        <erodibility>5.e-6</erodibility>
+        <erodibility>1.e-6</erodibility>
     </sp_law>
 
     <!-- Linear slope diffusion parameters:
@@ -140,7 +138,7 @@
          law which states that transport rate depends linearly on topographic gradient. -->
     <creep>
         <!-- Surface diffusion coefficient [m2/a] -->
-        <caerial>1.</caerial>
+        <caerial>1</caerial>
         <!-- Marine diffusion coefficient [m2/a] -->
         <cmarine>5.e-1</cmarine>
         <!-- River transported sediment diffusion

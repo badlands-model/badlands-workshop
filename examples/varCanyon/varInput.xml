@@ -11,7 +11,7 @@
              The default value is set to 1. Increasing the factor
              value will multiply the digital elevation model resolution
              accordingly.  -->
-        <resfactor>1</resfactor>
+        <resfactor>5</resfactor>
     </grid>
 
     <!-- Simulation time structure -->
@@ -19,7 +19,7 @@
         <!-- Simulation start time [a] -->
         <start>0.</start>
         <!-- Simulation end time [a] -->
-        <end>1000000.</end>
+        <end>100000.</end>
         <!-- Display interval [a] -->
         <display>10000.</display>
     </time>
@@ -94,9 +94,9 @@
          law which states that transport rate depends linearly on topographic gradient. -->
     <creep>
         <!-- Surface diffusion coefficient [m2/a] -->
-        <caerial>1e-1</caerial>
+        <caerial>0.5</caerial>
         <!-- Marine diffusion coefficient [m2/a] -->
-        <cmarine>5e-1</cmarine>
+        <cmarine>1.</cmarine>
         <!-- River transported sediment diffusion
              coefficient in marine realm [m2/a] -->
         <criver>5.</criver>
