@@ -113,16 +113,16 @@ def view1Step(tin, flow, sea, scaleZ=40,  maxZ=100, maxED=20,flowlines=False):
     cb3 = tris3.colourbar()
 
     # Flow lines
-    if flowlines:
-        flines = lv.lines("flow")
-        flines.vertices(flow['coords'])
-        flines.indices(flow['connect'], offset=1)
-        #flines.values(flow['discharge'], 'discharge')
-        flines.values(flow['chi'], 'chi')
-        #flines.values(flow['sedload'], 'sedload')
-        flines.values(flow['basin'], 'basin')
-        flines.colourmap()
-        flines.colourbar()
+    # if flowlines:
+    #     flines = lv.lines("flow")
+    #     flines.vertices(flow['coords'])
+    #     flines.indices(flow['connect'], offset=1)
+    #     #flines.values(flow['discharge'], 'discharge')
+    #     flines.values(flow['chi'], 'chi')
+    #     #flines.values(flow['sedload'], 'sedload')
+    #     flines.values(flow['basin'], 'basin')
+    #     flines.colourmap()
+    #     flines.colourbar()
 
     lv.translation(-851.394, 4214.401, -51083.648)
     lv.rotation(-54.936, -14.238, -2.516)
@@ -133,10 +133,10 @@ def view1Step(tin, flow, sea, scaleZ=40,  maxZ=100, maxED=20,flowlines=False):
     lv.control.Range(command='scale z', range=(1,scaleZ), step=1., value=5)
     lv.control.Range(command='background', range=(0,1), step=0.1, value=1)
 
-    if flowlines:
-        flines.control.List(options=['chi', 'basin'], property='colourby', label='Flow colour field')
-        flines.control.List(options=['spectral', 'cool', 'diverge', 'coolwarm'], property='colourmap', label='Flow colourmap', command="reload")
-        flines.control.Range('linewidth', range=(0.5,7.5))
+    # if flowlines:
+    #     flines.control.List(options=['chi', 'basin'], property='colourby', label='Flow colour field')
+    #     flines.control.List(options=['spectral', 'cool', 'diverge', 'coolwarm'], property='colourmap', label='Flow colourmap', command="reload")
+    #     flines.control.Range('linewidth', range=(0.5,7.5))
 
     lv.control.show()
 
@@ -219,32 +219,32 @@ def viewTime(folder,steps=100,it=2,scaleZ=40, maxZ=100,maxED=20,flowlines=False)
             cb4 = tris4.colourbar()
 
         # Flow lines
-        if flowlines:
-            if s == 0:
-                flines = lv.lines("flow")
-
-            flines.vertices(flow['coords'])
-            flines.indices(flow['connect'], offset=1)
-
-            #flines.values(flow['discharge'], 'discharge')
-            flines.values(flow['chi'], 'chi')
-            #flines.values(flow['sedload'], 'sedload')
-            flines.values(flow['basin'], 'basinID')
-
-            if s == 0:
-                flines.colourmap()
-                flines.colourbar()
+        # if flowlines:
+        #     if s == 0:
+        #         flines = lv.lines("flow")
+        #
+        #     flines.vertices(flow['coords'])
+        #     flines.indices(flow['connect'], offset=1)
+        #
+        #     #flines.values(flow['discharge'], 'discharge')
+        #     flines.values(flow['chi'], 'chi')
+        #     #flines.values(flow['sedload'], 'sedload')
+        #     flines.values(flow['basin'], 'basinID')
+        #
+        #     if s == 0:
+        #         flines.colourmap()
+        #         flines.colourbar()
 
     lv.control.Panel()
     lv.control.TimeStepper()
     lv.control.Range(command='scale z', range=(1,scaleZ), step=1., value=5)
     lv.control.Range(command='background', range=(0,1), step=0.1, value=1)
 
-    if flowlines:
-        #flines.control.List(options=['discharge', 'chi', 'sedload', 'basin'], property='colourby', label='Flow colour field')
-        flines.control.List(options=['chi', 'basinID'], property='colourby', label='Flow colour field')
-        flines.control.List(options=['spectral', 'cool', 'diverge', 'coolwarm'], property='colourmap', label='Flow colourmap', command="reload")
-        flines.control.Range('linewidth', range=(0.5,7.5))
+    # if flowlines:
+    #     #flines.control.List(options=['discharge', 'chi', 'sedload', 'basin'], property='colourby', label='Flow colour field')
+    #     flines.control.List(options=['chi', 'basinID'], property='colourby', label='Flow colour field')
+    #     flines.control.List(options=['spectral', 'cool', 'diverge', 'coolwarm'], property='colourmap', label='Flow colourmap', command="reload")
+    #     flines.control.Range('linewidth', range=(0.5,7.5))
 
     lv.control.ObjectList()
     lv.control.show()
