@@ -10,7 +10,7 @@ Badlands Workshop & Examples
 [![Documentation Status](https://readthedocs.org/projects/badlands/badge/?version=latest)](https://badlands.readthedocs.io/en/latest/?badge=latest)      [![DOI](https://zenodo.org/badge/51286954.svg)](https://zenodo.org/badge/latestdoi/51286954)
 
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/badlandsmodel/pybadlands-demo-dev)](https://cloud.docker.com/u/badlandsmodel/repository/docker/badlandsmodel/badlands)
+[![Docker Pulls](https://img.shields.io/docker/pulls/badlandsmodel/pybadlands-demo-serial)](https://cloud.docker.com/u/badlandsmodel/repository/docker/badlandsmodel/badlands)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/badlands-model/badlands-docker/binder?filepath=StartHere.ipynb)
 
 <div align="center">
@@ -21,7 +21,7 @@ Badlands Workshop & Examples
 Basin and Landscape Dynamics (Badlands) is a long-term surface evolution model built to simulate landscape development, sediment transport and sedimentary basins formation from upstream regions down to marine environments.
 
 
-> This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+> This program is a free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 
 ## What’s in the box?
