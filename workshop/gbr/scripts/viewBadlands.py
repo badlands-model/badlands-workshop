@@ -31,8 +31,8 @@ def loadStep(folder, step,timev=True):
     """
 
     # Load output files
-    flow = h5py.File(folder+'/h5/flow.time'+str(step)+'.p0.hdf5', 'r')
-    tin = h5py.File(folder+'/h5/tin.time'+str(step)+'.p0.hdf5', 'r')
+    flow = h5py.File(folder+'/h5/flow.time'+str(step)+'.hdf5', 'r')
+    tin = h5py.File(folder+'/h5/tin.time'+str(step)+'.hdf5', 'r')
 
     # Get the sea level history and depositional time for each stratigraphic layer
     with open(folder+'/xmf/tin.time'+str(step)+'.xmf') as fp:
