@@ -9,7 +9,7 @@
              The default value is set to 1. Increasing the factor
              value will multiply the digital elevation model resolution
              accordingly.  -->
-        <resfactor>5</resfactor>
+        <resfactor>10</resfactor>
         <!-- Boundary type: flat, slope, fix or wall -->
         <boundary>flat</boundary>
     </grid>
